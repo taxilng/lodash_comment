@@ -4225,16 +4225,22 @@
     function baseToString(value) {
       // Exit early for strings to avoid a performance hit in some environments.
       if (typeof value == 'string') {
+        //如果是字符串则直接返回
         return value;
       }
       if (isArray(value)) {
         // Recursively convert values (susceptible to call stack limits).
+        //假如是数组的话，则对每一项进行转字符串处理,
+        // [1,2] + '' 相当于 [1,2].join() 转成 '1,2'
         return arrayMap(value, baseToString) + '';
       }
       if (isSymbol(value)) {
+        //symbol原生的字符串处理
         return symbolToString ? symbolToString.call(value) : '';
       }
+      // 直接与 空字符串相加进行隐式转换
       var result = (value + '');
+      // 如果是 -0 ，则 1/-0 为负无穷，返回'-0'，其他原样返回
       return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
     }
 
@@ -12560,6 +12566,7 @@
      *
      * _.toString([1, 2, 3]);
      * // => '1,2,3'
+     * 字符串的转换
      */
     function toString(value) {
       return value == null ? '' : baseToString(value);

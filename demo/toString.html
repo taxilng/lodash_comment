@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>lodash</title>
+  </head>
+  <body>
+    <script src="../lodash.js"></script>
+    <script>
+        var str1 = _.toString()
+        var str2 = _.toString(undefined)
+        var str3 = _.toString(null)
+        var str4 = _.toString(1)
+        var str5 = _.toString('12a')
+        var str6 = _.toString([1,2])
+        let s = Symbol('foo')
+        var str7 = _.toString(0)
+        var str8 = _.toString(-0)
+        var str9 = _.toString(+0)
+        var str10 = _.toString('+0')
+        var str11 = _.toString('0')
+        var str12 = _.toString(true)
+        var str13 = _.toString({a:1})
+        console.log(str1);
+        console.log(str2);
+        console.log(str3);
+        console.log(str4);
+        console.log(str5);
+        console.log(str6);
+        console.log(str7);
+        console.log(str8);
+        console.log(str9);
+        console.log(str10);
+        console.log(str11);
+        console.log(str12);
+        console.log(str13);
+        
+    </script>
+  </body>
+</html>
