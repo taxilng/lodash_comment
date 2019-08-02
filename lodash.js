@@ -9,6 +9,7 @@
 ;(function() {
 
   /** Used as a safe reference for `undefined` in pre-ES5 environments. */
+  // 函数内部重新定义 undefined，防止外部修改了 undefined =3 的值。
   var undefined;
 
   /** Used as the semantic version number. */
@@ -4216,7 +4217,7 @@
     /**
      * The base implementation of `_.toString` which doesn't convert nullish
      * values to empty strings.
-     *
+     * 一套优雅的转字符串的函数
      * @private
      * @param {*} value The value to process.
      * @returns {string} Returns the string.
@@ -5211,32 +5212,38 @@
 
     /**
      * Creates a function that performs a mathematical operation on two values.
-     *
+     * 创建一个对两个值执行数学运算的函数。
      * @private
-     * @param {Function} operator The function to perform the operation.
-     * @param {number} [defaultValue] The value used for `undefined` arguments.
+     * @param {Function} operator The function to perform the operation. 参数为函数，例如加法函数
+     * @param {number} [defaultValue] The value used for `undefined` arguments. 默认值
      * @returns {Function} Returns the new mathematical operation function.
      */
     function createMathOperation(operator, defaultValue) {
       return function(value, other) {
         var result;
         if (value === undefined && other === undefined) {
+          // 假如没有传参，则返回默认值，例如 _.add() = 0 结果为0
           return defaultValue;
         }
         if (value !== undefined) {
+          //第一个参数非undefined，则先将第一个值赋值给result
           result = value;
         }
         if (other !== undefined) {
           if (result === undefined) {
+            //第二个参数非undefined，第一个参数为undefined,则返回第二个参数的值
             return other;
           }
           if (typeof value == 'string' || typeof other == 'string') {
+            //两个参数有一个是字符串，则都转成字符串
             value = baseToString(value);
             other = baseToString(other);
           } else {
+            // 两个参数都不是字符串，则都转成数字
             value = baseToNumber(value);
             other = baseToNumber(other);
           }
+          // 执行运算，例如加法，减法
           result = operator(value, other);
         }
         return result;
