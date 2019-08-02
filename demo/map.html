@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>lodash</title>
+  </head>
+  <body>
+    <script src="../lodash.js"></script>
+    <script>
+      console.log(new _());
+      
+        var sum1 = _.map([1,2,3],v=> v+1)
+        var sum2 = _.map({ 'a': 4, 'b': 8 },v=> v+1)
+        var sum3 = _.map([12,3],{a:2})
+        var sum4 = _.map([1,2],[4,5])
+        var sum5 = _.add(undefined,4)
+        var sum6 = _.add(null)
+        var sum7 = _.add('a','b')
+        var sum8 = _.add('12a','b')
+        var sum9 = _.add('12a','3b')
+        var sum10 = _.add(12,'2')
+        var sum11 = _.add(NaN,1)
+        console.log(sum1);
+        console.log(sum2);
+        console.log(sum3);
+        console.log(sum4);
+        console.log(sum5);
+        console.log(sum6);
+        console.log(sum7);
+        console.log(sum8);
+        console.log(sum9);
+        console.log(sum10);
+        console.log(sum11);
+        
+    </script>
+  </body>
+</html>

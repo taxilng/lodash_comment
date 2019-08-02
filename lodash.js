@@ -3460,9 +3460,11 @@
       // Don't store the `typeof` result in a variable to avoid a JIT bug in Safari 9.
       // See https://bugs.webkit.org/show_bug.cgi?id=156034 for more details.
       if (typeof value == 'function') {
+        // 函数直接返回
         return value;
       }
       if (value == null) {
+        //返回一个函数，这个函数会原样返回他的第一个参数例如 v=>v
         return identity;
       }
       if (typeof value == 'object') {
@@ -6758,7 +6760,7 @@
 
     /**
      * Converts `value` to a string key if it's not a string or symbol.
-     *
+     * 依旧是转成字符串，但是不转undefined,null其他跟_.toString()毫无区别
      * @private
      * @param {*} value The value to inspect.
      * @returns {string|symbol} Returns the key.
@@ -9563,6 +9565,7 @@
      * // => ['barney', 'fred']
      */
     function map(collection, iteratee) {
+      // 是数组就调用arrayMap方法，否则调用baseMap方法
       var func = isArray(collection) ? arrayMap : baseMap;
       return func(collection, getIteratee(iteratee, 3));
     }
@@ -15506,7 +15509,7 @@
      * property value for a given element. If `func` is an array or object, the
      * created function returns `true` for elements that contain the equivalent
      * source properties, otherwise it returns `false`.
-     *
+     * 如果是函数直接返回，如果是对象或者数组，则返回有效的值
      * @static
      * @since 4.0.0
      * @memberOf _
@@ -15543,6 +15546,7 @@
      * // => ['def']
      */
     function iteratee(func) {
+      // 如果类型为函数，直接返回，如果不是则深拷贝这个值
       return baseIteratee(typeof func == 'function' ? func : baseClone(func, CLONE_DEEP_FLAG));
     }
 
