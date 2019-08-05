@@ -11757,14 +11757,16 @@
      * // => false
      */
     function isObject(value) {
+      //是否为对象
       var type = typeof value;
+      // 因为 typeof null = object 所以有以下判断，类型为对象或者函数
       return value != null && (type == 'object' || type == 'function');
     }
 
     /**
      * Checks if `value` is object-like. A value is object-like if it's not `null`
      * and has a `typeof` result of "object".
-     *
+     * 检查 value 是否是 类对象。 如果一个值是类对象，那么它不应该是 null，而且 typeof 后的结果是 "object"。
      * @static
      * @memberOf _
      * @since 4.0.0
@@ -11786,6 +11788,7 @@
      * // => false
      */
     function isObjectLike(value) {
+      // 类对象，少了个function类型
       return value != null && typeof value == 'object';
     }
 
@@ -12163,7 +12166,7 @@
      * @param {*} value The value to check.
      * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
      * @example
-     *
+     * 是否为symbol类型
      * _.isSymbol(Symbol.iterator);
      * // => true
      *
@@ -12457,7 +12460,7 @@
      * @param {*} value The value to process.
      * @returns {number} Returns the number.
      * @example
-     *
+     * 转换成数字类型
      * _.toNumber(3.2);
      * // => 3.2
      *
@@ -12471,9 +12474,11 @@
      * // => 3.2
      */
     function toNumber(value) {
+      // 如果本身就是数字类型，直接返回
       if (typeof value == 'number') {
         return value;
       }
+      // 如果是symbol 则返回 NaN
       if (isSymbol(value)) {
         return NAN;
       }
@@ -15771,7 +15776,7 @@
      * @since 2.3.0
      * @category Util
      * @example
-     *
+     *  这是一个空白的函数，返回值是undefined
      * _.times(2, _.noop);
      * // => [undefined, undefined]
      */
