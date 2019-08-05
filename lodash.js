@@ -6291,8 +6291,10 @@
      * @param {*} object The potential iteratee object argument.
      * @returns {boolean} Returns `true` if the arguments are from an iteratee call,
      *  else `false`.
+     * 检查给定的参数是否来自iteratee调用
      */
     function isIterateeCall(value, index, object) {
+      // 第三个参数 非对象则 返回 false
       if (!isObject(object)) {
         return false;
       }
@@ -6303,6 +6305,7 @@
           ) {
         return eq(object[index], value);
       }
+      // 上面的条件没成立还是返回 false
       return false;
     }
 
@@ -12361,7 +12364,7 @@
      * @param {*} value The value to convert.
      * @returns {number} Returns the converted number.
      * @example
-     *
+     *  转为有限数字
      * _.toFinite(3.2);
      * // => 3.2
      *
@@ -12375,12 +12378,17 @@
      * // => 3.2
      */
     function toFinite(value) {
+      // 进入条件的情况为 null undefined '' 0 false NaN
       if (!value) {
+        // 为什么不直接return 0; 真让人头大
+        // 经过鸟神提醒，因为 -0 === 0 所以会 return -0 保留原汁原味
         return value === 0 ? value : 0;
       }
       value = toNumber(value);
+      //假如为 无穷大 或者 无穷小
       if (value === INFINITY || value === -INFINITY) {
         var sign = (value < 0 ? -1 : 1);
+        //MAX_INTEGER 为常数 1.7976931348623157e+308
         return sign * MAX_INTEGER;
       }
       return value === value ? value : 0;
@@ -12399,7 +12407,7 @@
      * @param {*} value The value to convert.
      * @returns {number} Returns the converted integer.
      * @example
-     *
+     * 转换成整数
      * _.toInteger(3.2);
      * // => 3
      *
@@ -12413,9 +12421,13 @@
      * // => 3
      */
     function toInteger(value) {
+      // 先把值转成 有限数字
       var result = toFinite(value),
+        // 求余
           remainder = result % 1;
-
+      //什么情况下，自己不全等于自己，我猜测是NaN。也就是说NaN 会转换为0
+      // 当有余数，则把 余数去除
+      // Number.MIN_VALUE 为 5e-324，用paseInt(5e-324) = 5 是错误的，用求余法作差则为0
       return result === result ? (remainder ? result - remainder : result) : 0;
     }
 
